@@ -22,10 +22,10 @@
 
 #include <cstddef>
 
+#include "bionic/bionic.h"
+
 #define LOG_TAG "JniInvocation"
 #include "log/log.h"
-
-#include "cutils/properties.h"
 
 JniInvocation* JniInvocation::jni_invocation_ = NULL;
 
@@ -88,7 +88,7 @@ const char* JniInvocation::GetLibrary(const char* library, char* buffer) {
 }
 
 bool JniInvocation::Init(const char* library) {
-  char buffer[PROPERTY_VALUE_MAX];
+  char buffer[PROP_VALUE_MAX];
   library = GetLibrary(library, buffer);
   // Load with RTLD_NODELETE in order to ensure that libart.so is not unmapped when it is closed.
   // This is due to the fact that it is possible that some threads might have yet to finish
